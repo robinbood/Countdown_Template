@@ -13,7 +13,7 @@ const App = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  });
+  },[]);
   useEffect(() => {
     const dooom = window.localStorage.getItem("event")
     const dooom2 = window.localStorage.getItem("event2")
