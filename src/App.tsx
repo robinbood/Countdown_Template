@@ -16,14 +16,14 @@ const App = () => {
   });
   useEffect(() => {
     const dooom = window.localStorage.getItem("event")
+    const dooom2 = window.localStorage.getItem("event2")
     setTimer(dooom ?? "")
-    setName(dooom ?? "")
-
+    setName(dooom2 ?? "")
   }, [])
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     window.localStorage.setItem("event", eventDate);
-    window.localStorage.setItem("event", name)
+    window.localStorage.setItem("event2", name)
   };
 
   return (
@@ -41,6 +41,10 @@ const App = () => {
       </div>
       <div id="svg">
         <h1>{timer}</h1>
+      </div>
+      <br />
+      <div>
+        <h1>{name}</h1>
       </div>
     </>
   );
