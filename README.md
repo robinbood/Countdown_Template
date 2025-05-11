@@ -1,7 +1,8 @@
 This is a template for you guys to try and make a beautiful <q><b>eventer</b></q> out of it..Have fun and add functionality<hr />
 No libraries used <hr />
 <b>So I used Temporal Polyfill for this task and i learned quite a few things and i'm gonna share it here incase someone get's bored reading through those 10000 lines of instructions </b>
-<h2>Temporal solves the hectic work of getting months in a day which is gonna save you 10 minutes and crazy </h2><hr />
+<h2>Temporal solves the hectic work of getting months in a day which is gonna save you 10 minutes and crazy </h2>
+<hr />
 <h3>Temporal.Duration</h3>
 <li>Always use ISO dates</li>
 <li>Get a range error? slap a <q>{relativeTo:<>}</q> onto it</li>
