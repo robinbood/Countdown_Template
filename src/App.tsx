@@ -9,23 +9,34 @@ const App = () => {
   const [timer, setTimer] = useState<string>("");
   const [timeleft, setTimeLeft] = useState<string>("");
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (timer) {
+  const interval = setInterval(() => {
+    if (timer) {
+      try {
         const now = Temporal.Now.instant();
         const target = Temporal.Instant.from(timer + "T00:00:00Z");
         const diff = target.since(now);
-        const totalDays = Math.floor(diff.total('days'));
-        const years = Math.floor(totalDays / 365);
-        const months = Math.floor((totalDays % 365) / 30);
-        const days = Math.floor(totalDays % 365 % 30);
-        const hours = Math.floor(diff.total('hours') % 24);
-        
-        setTimeLeft(`${years}years ${months}months  ${days}days ${hours}hour(s)`);
-      }
-    }, 1000);
 
-    return () => clearInterval(interval); 
-  }, [timer]);
+        // Convert instants to plain dates for duration calculations
+        const nowDate = now.toZonedDateTimeISO("UTC").toPlainDate();
+        const targetDate = target.toZonedDateTimeISO("UTC").toPlainDate();
+
+        // Calculate duration components
+        const duration = targetDate.since(nowDate, { largestUnit: 'years' });
+        const years = duration.years;
+        const months = duration.months;
+        const days = duration.days;
+        const hours = diff.total('hours') % 24;
+
+        setTimeLeft(`${years} years ${months} months ${days} days ${hours} hour(s)`);
+      } catch (error : unknown) {
+        console.error("Error calculating time left:", error instanceof Error ? error.message : "Unknown error");
+        setTimeLeft("Invalid timer");
+      }
+    }
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [timer]);
   
   useEffect(() => {
     const interval = setInterval(() => {
